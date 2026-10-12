@@ -8,5 +8,5 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
 })
 export class App {
-  protected readonly title = signal('ioc-angular-fittrack-manuel-urendez');
+  public readonly title = signal('FitTrack');
 }
