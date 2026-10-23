@@ -1,0 +1,28 @@
+
+
+<article class="targeta">
+  <h3>{{ entrenament.nom }}</h3>
+
+  <p>{{ entrenament.descripcio }}</p>
+
+  <p>Categoria:
+    <app-etiqueta-categoria
+      [categoria]="entrenament.categoria">
+    </app-etiqueta-categoria>
+  </p>
+
+  <p>Durada: {{ entrenament.durada }} minuts</p>
+
+  
+    @if (entrenament.destacat) {
+    <p><strong>Entrenament destacat</strong></p>
+    }
+
+    <p>
+    <button type="button" (click)="seleccionar()">
+        Seleccionar entrenament
+    </button>
+    </p>
+
+
+</article>

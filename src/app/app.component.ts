@@ -1,12 +1,30 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+
+import { Component } from '@angular/core';
+import { LlistaEntrenaments } from './components/llista-entrenaments/llista-entrenaments.component';
+import { FiltreEntrenaments } from './components/filtre-entrenaments/filtre-entrenaments.component';
+import { Entrenament } from './models/entrenament.model';
+import { ENTRENAMENTS } from './entrenament.mock';
 
 @Component({
-  imports: [RouterOutlet],
   selector: 'app-root',
-  styleUrl: './app.component.scss',
+  imports: [LlistaEntrenaments, FiltreEntrenaments],
   templateUrl: './app.component.html',
+  styleUrl: './app.component.scss'
 })
 export class App {
-  public readonly title = signal('FitTrack');
+
+  entrenaments = ENTRENAMENTS;
+
+  entrenamentSeleccionat: Entrenament | null = null;
+
+  aplicarFiltre(categoria: string) {
+    this.entrenaments = ENTRENAMENTS.filter(
+      entrenament => entrenament.categoria === categoria
+    );
+  }
+
+  seleccionarEntrenament(entrenament: Entrenament) {
+    this.entrenamentSeleccionat = entrenament;
+  }
+
 }

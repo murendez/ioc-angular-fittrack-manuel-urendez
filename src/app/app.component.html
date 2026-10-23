@@ -1,22 +1,17 @@
 
-<main class="contenidor">
-  <h1>{{ title() }}</h1>
+<h1>FitTrack</h1>
 
-  <p>
-    Aplicació creada per Manuel Urendez Molero per registrar
-    i consultar entrenaments esportius.
-  </p>
+<app-filtre-entrenaments
+  (filtreAplicat)="aplicarFiltre($event)">
+</app-filtre-entrenaments>
 
-  <section class="targeta">
-    <h2>Dades del projecte</h2>
-    <p><strong>Nom:</strong> FitTrack</p>
-    <p><strong>Tecnologia:</strong> Angular 22</p>
-    <p><strong>Objectiu:</strong> Seguiment d'entrenaments</p>
-  </section>
+@if (entrenamentSeleccionat) {
+  <h3>
+    Has seleccionat: {{ entrenamentSeleccionat.nom }}
+  </h3>
+}
 
-  <aside>
-    Aquesta aplicació s'anirà ampliant durant el curs.
-  </aside>
-
-  <p>Projecte base llest - Hot reload comprovat!</p>
-</main>
+<app-llista-entrenaments
+  [entrenaments]="entrenaments"
+  (entrenamentSeleccionat)="seleccionarEntrenament($event)">
+</app-llista-entrenaments>
