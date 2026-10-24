@@ -4,10 +4,11 @@ import { LlistaEntrenaments } from './components/llista-entrenaments/llista-entr
 import { FiltreEntrenaments } from './components/filtre-entrenaments/filtre-entrenaments.component';
 import { Entrenament } from './models/entrenament.model';
 import { ENTRENAMENTS } from './entrenament.mock';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [LlistaEntrenaments, FiltreEntrenaments],
+  imports: [LlistaEntrenaments, FiltreEntrenaments, DatePipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -19,6 +20,9 @@ export class App {
 
   
   aplicarFiltre(filtres: { text: string; categoria: string }) {
+    // Netegem la selecció anterior quan canviem els filtres
+    this.entrenamentSeleccionat = null;
+    
     this.entrenaments = ENTRENAMENTS.filter(entrenament => {
 
       const coincideixText = entrenament.nom

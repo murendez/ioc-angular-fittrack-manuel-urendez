@@ -5,11 +5,24 @@
   (filtreAplicat)="aplicarFiltre($event)">
 </app-filtre-entrenaments>
 
+
 @if (entrenamentSeleccionat) {
-  <h3>
-    Has seleccionat: {{ entrenamentSeleccionat.nom }}
-  </h3>
+  <!-- Mostrem els detalls de l'entrenament seleccionat -->
+  <section class="detall-entrenament">
+    <h2>Detall de l'entrenament</h2>
+
+    <h3>{{ entrenamentSeleccionat.nom }}</h3>
+
+    <p>{{ entrenamentSeleccionat.descripcio }}</p>
+
+    <p>Categoria: {{ entrenamentSeleccionat.categoria }}</p>
+
+    <p>Durada: {{ entrenamentSeleccionat.durada }} minuts</p>
+
+    <p>Data: {{ entrenamentSeleccionat.data | date:'dd/MM/yyyy' }}</p>
+  </section>
 }
+
 
 <app-llista-entrenaments
   [entrenaments]="entrenaments"

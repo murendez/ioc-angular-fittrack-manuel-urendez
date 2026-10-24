@@ -1,9 +1,28 @@
 
-<h2>Llista d'entrenaments</h2>
 
-@for (entrenament of entrenaments; track entrenament.id) {
-  <app-targeta-entrenament
-    [entrenament]="entrenament"
-    (seleccionat)="seleccionarEntrenament($event)">
-  </app-targeta-entrenament>
+<!-- Capçalera de la llista amb el nombre de resultats -->
+<div class="capcalera-llista">
+  <h2>Llista d'entrenaments</h2>
+
+  <p class="comptador">
+    {{ entrenaments.length }} entrenaments trobats
+  </p>
+</div>
+
+
+@if (entrenaments.length > 0) {
+
+  <!-- Mostrem les targetes si hi ha entrenaments -->
+  @for (entrenament of entrenaments; track entrenament.id) {
+    <app-targeta-entrenament
+      [entrenament]="entrenament"
+      (seleccionat)="seleccionarEntrenament($event)">
+    </app-targeta-entrenament>
+  }
+
+} @else {
+
+  <!-- Mostrem un avís si no hi ha resultats -->
+  <p>No s'han trobat entrenaments amb aquests filtres.</p>
+
 }
