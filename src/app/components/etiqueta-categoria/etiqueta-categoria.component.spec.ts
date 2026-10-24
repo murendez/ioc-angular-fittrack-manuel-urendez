@@ -1,14 +1,27 @@
 
-import { Component, Input } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { EtiquetaCategoria } from './etiqueta-categoria.component';
 
-@Component({
-  selector: 'app-etiqueta-categoria',
-  imports: [],
-  templateUrl: './etiqueta-categoria.component.html',
-  styleUrl: './etiqueta-categoria.component.scss'
-})
-export class EtiquetaCategoria {
+describe('EtiquetaCategoria', () => {
+  let component: EtiquetaCategoria;
+  let fixture: ComponentFixture<EtiquetaCategoria>;
 
-  @Input({ required: true }) categoria!: string;
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [EtiquetaCategoria]
+    }).compileComponents();
 
-}
+    fixture = TestBed.createComponent(EtiquetaCategoria);
+    component = fixture.componentInstance;
+
+    // Enviem una categoria de prova al component
+    fixture.componentRef.setInput('categoria', 'Running');
+
+    await fixture.whenStable();
+  });
+
+  // Comprovem que el component es crea correctament
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
