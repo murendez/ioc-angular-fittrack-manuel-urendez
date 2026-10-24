@@ -14,21 +14,24 @@ import { DatePipe } from '@angular/common';
 })
 export class App {
 
+  // Carreguem la llista inicial d'entrenaments
   entrenaments = ENTRENAMENTS;
 
   entrenamentSeleccionat: Entrenament | null = null;
 
-  
   aplicarFiltre(filtres: { text: string; categoria: string }) {
+
     // Netegem la selecció anterior quan canviem els filtres
     this.entrenamentSeleccionat = null;
-    
+
     this.entrenaments = ENTRENAMENTS.filter(entrenament => {
 
+      // Comprovem si el nom conté el text que hem escrit
       const coincideixText = entrenament.nom
         .toLowerCase()
         .includes(filtres.text.toLowerCase());
 
+      // Comprovem si coincideix amb la categoria seleccionada
       const coincideixCategoria =
         filtres.categoria === '' ||
         entrenament.categoria === filtres.categoria;
@@ -37,7 +40,7 @@ export class App {
     });
   }
 
-
+  // Guardem l'entrenament que ha seleccionat l'usuari
   seleccionarEntrenament(entrenament: Entrenament) {
     this.entrenamentSeleccionat = entrenament;
   }

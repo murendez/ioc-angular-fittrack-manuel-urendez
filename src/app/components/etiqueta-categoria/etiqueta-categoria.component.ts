@@ -9,6 +9,7 @@ import { Component, Input } from '@angular/core';
 })
 export class EtiquetaCategoria {
 
+  // Rep la categoria de l'entrenament per mostrar-la a l'etiqueta
   @Input({ required: true }) categoria!: string;
 
 }

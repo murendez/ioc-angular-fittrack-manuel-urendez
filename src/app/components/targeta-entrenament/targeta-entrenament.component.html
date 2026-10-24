@@ -1,5 +1,4 @@
 
-
 <article class="targeta">
   <h3>{{ entrenament.nom }}</h3>
 
@@ -13,16 +12,16 @@
 
   <p>Durada: {{ entrenament.durada }} minuts</p>
 
-  
-    @if (entrenament.destacat) {
+  <!-- Mostrem el missatge només si l'entrenament és destacat -->
+  @if (entrenament.destacat) {
     <p><strong>Entrenament destacat</strong></p>
-    }
+  }
 
-    <p>
+  <!-- Avisem quan l'usuari selecciona aquest entrenament -->
+  <p>
     <button type="button" (click)="seleccionar()">
-        Seleccionar entrenament
+      Seleccionar entrenament
     </button>
-    </p>
-
+  </p>
 
 </article>

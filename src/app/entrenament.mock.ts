@@ -1,5 +1,6 @@
 
 import { Entrenament } from './models/entrenament.model';
+// Llista de 10 entrenaments de prova per utilitzar a FitTrack
 
 export const ENTRENAMENTS: Entrenament[] = [
   {

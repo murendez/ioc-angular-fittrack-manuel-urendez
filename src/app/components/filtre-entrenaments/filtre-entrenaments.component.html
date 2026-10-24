@@ -1,10 +1,11 @@
 
+<!-- Formulari per filtrar els entrenaments -->
 <form #formulari="ngForm">
   <h2>Filtrar entrenaments</h2>
 
   <div>
     <label for="textCerca">Cerca un entrenament:</label>
-    
+
     <input
       type="text"
       id="textCerca"
@@ -14,9 +15,11 @@
       required
       minlength="3"
       placeholder="Exemple: Carrera">
-      @if (cerca.errors?.['minlength'] && cerca.touched) {
-        <p class="error">El text ha de tenir com a mínim 3 caràcters.</p>
-      }
+
+    <!-- Mostrem un error si escrivim menys de 3 caràcters -->
+    @if (cerca.errors?.['minlength'] && cerca.touched) {
+      <p class="error">El text ha de tenir com a mínim 3 caràcters.</p>
+    }
   </div>
 
   <div>
@@ -37,6 +40,7 @@
     </select>
   </div>
 
+  <!-- Desactivem el botó si el formulari no és vàlid -->
   <button
     type="button"
     (click)="aplicarFiltre()"
@@ -44,6 +48,7 @@
     Aplicar filtres
   </button>
 
+  <!-- Netegem els camps per tornar a mostrar tots els entrenaments -->
   <button type="button" (click)="restablirFiltres()">
     Restablir filtres
   </button>

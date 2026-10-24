@@ -1,10 +1,10 @@
 
 <h1>FitTrack</h1>
 
+<!-- Formulari per buscar i filtrar entrenaments -->
 <app-filtre-entrenaments
   (filtreAplicat)="aplicarFiltre($event)">
 </app-filtre-entrenaments>
-
 
 @if (entrenamentSeleccionat) {
   <!-- Mostrem els detalls de l'entrenament seleccionat -->
@@ -23,7 +23,7 @@
   </section>
 }
 
-
+<!-- Mostrem la llista i rebem l'entrenament seleccionat -->
 <app-llista-entrenaments
   [entrenaments]="entrenaments"
   (entrenamentSeleccionat)="seleccionarEntrenament($event)">

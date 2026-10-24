@@ -11,10 +11,13 @@ import { TargetaEntrenament } from '../targeta-entrenament/targeta-entrenament.c
 })
 export class LlistaEntrenaments {
 
+  // Rep la llista d'entrenaments del component pare
   @Input() entrenaments: Entrenament[] = [];
 
+  // Permet avisar el pare quan se selecciona un entrenament
   @Output() entrenamentSeleccionat = new EventEmitter<Entrenament>();
 
+  // Enviem l'entrenament seleccionat al component pare
   seleccionarEntrenament(entrenament: Entrenament) {
     this.entrenamentSeleccionat.emit(entrenament);
   }
