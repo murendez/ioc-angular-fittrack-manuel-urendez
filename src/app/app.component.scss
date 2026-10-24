@@ -28,7 +28,6 @@ aside {
   border-radius: 5px;
 }
 
-
 /* Estil del panell de l'entrenament seleccionat */
 .detall-entrenament {
   background-color: #eef4ff;
@@ -48,6 +47,49 @@ aside {
 
   p {
     margin: 8px 0;
+  }
+}
+
+/* L'enllaç està amagat fins que el seleccionem amb el teclat */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+}
+
+/* Mostrem l'enllaç quan rep el focus */
+.skip-link:focus {
+  left: 10px;
+  top: 10px;
+  background-color: #2455a4;
+  color: white;
+  padding: 10px;
+  z-index: 1000;
+}
+
+
+/* Distribució de FitTrack en dues columnes */
+
+/* Distribució de FitTrack en dues columnes */
+.layout {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 20px;
+  max-width: 950px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+
+.columna-filtres,
+.columna-resultats {
+  min-width: 0;
+}
+
+/* En pantalles petites mostrem una sola columna */
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+    padding: 0 10px;
   }
 }
 

@@ -1,7 +1,38 @@
+
+/* Estil de cada targeta d'entrenament */
 .targeta {
   border: 1px solid #ccc;
   border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 15px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
   background-color: #f5f5f5;
+}
+
+/* Reduïm l'espai entre els textos */
+.targeta h3 {
+  margin: 5px 0 10px;
+}
+
+.targeta p {
+  margin: 8px 0;
+}
+
+/* Botó per seleccionar un entrenament */
+.targeta button {
+  background-color: #2455a4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.targeta button:hover {
+  background-color: #173e7a;
+}
+
+/* Focus visible per navegar amb el teclat */
+.targeta button:focus-visible {
+  outline: 3px solid #f0a500;
+  outline-offset: 3px;
 }

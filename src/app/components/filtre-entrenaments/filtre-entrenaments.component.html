@@ -14,11 +14,15 @@
       #cerca="ngModel"
       required
       minlength="3"
+      [attr.aria-describedby]="cerca.errors?.['minlength'] && cerca.touched ? 'error-cerca' : null"
+      [attr.aria-invalid]="cerca.invalid && cerca.touched"      
       placeholder="Exemple: Carrera">
 
-    <!-- Mostrem un error si escrivim menys de 3 caràcters -->
+    <!-- Mostrem un avís accessible quan el text és massa curt -->
     @if (cerca.errors?.['minlength'] && cerca.touched) {
-      <p class="error">El text ha de tenir com a mínim 3 caràcters.</p>
+      <p id="error-cerca" class="error" role="alert">
+        El text ha de tenir com a mínim 3 caràcters.
+      </p>
     }
   </div>
 
@@ -48,7 +52,7 @@
     Aplicar filtres
   </button>
 
-  <!-- Netegem els camps per tornar a mostrar tots els entrenaments -->
+  <!-- Netegem els camps i mostrem tots els entrenaments -->
   <button type="button" (click)="restablirFiltres()">
     Restablir filtres
   </button>
