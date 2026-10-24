@@ -1,4 +1,50 @@
 
-<button type="button" (click)="aplicarFiltre()">
-  Filtrar Running
-</button>
+<form #formulari="ngForm">
+  <h2>Filtrar entrenaments</h2>
+
+  <div>
+    <label for="textCerca">Cerca un entrenament:</label>
+    
+    <input
+      type="text"
+      id="textCerca"
+      name="textCerca"
+      [(ngModel)]="textCerca"
+      #cerca="ngModel"
+      required
+      minlength="3"
+      placeholder="Exemple: Carrera">
+      @if (cerca.errors?.['minlength'] && cerca.touched) {
+        <p class="error">El text ha de tenir com a mínim 3 caràcters.</p>
+      }
+  </div>
+
+  <div>
+    <label for="categoria">Categoria:</label>
+
+    <select
+      id="categoria"
+      name="categoria"
+      [(ngModel)]="categoriaSeleccionada">
+
+      <option value="">Totes les categories</option>
+      <option value="Running">Running</option>
+      <option value="Força">Força</option>
+      <option value="Ciclisme">Ciclisme</option>
+      <option value="Cardio">Cardio</option>
+      <option value="Mobilitat">Mobilitat</option>
+
+    </select>
+  </div>
+
+  <button
+    type="button"
+    (click)="aplicarFiltre()"
+    [disabled]="formulari.invalid">
+    Aplicar filtres
+  </button>
+
+  <button type="button" (click)="restablirFiltres()">
+    Restablir filtres
+  </button>
+</form>

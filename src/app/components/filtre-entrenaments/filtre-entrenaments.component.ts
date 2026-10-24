@@ -1,18 +1,40 @@
 
 import { Component, Output, EventEmitter } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-filtre-entrenaments',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './filtre-entrenaments.component.html',
   styleUrl: './filtre-entrenaments.component.scss'
 })
 export class FiltreEntrenaments {
 
-  @Output() filtreAplicat = new EventEmitter<string>();
+  textCerca = '';
+  categoriaSeleccionada = '';
+
+  @Output() filtreAplicat = new EventEmitter<{
+    text: string;
+    categoria: string;
+  }>();
 
   aplicarFiltre() {
-    this.filtreAplicat.emit('Running');
+    this.filtreAplicat.emit({
+      text: this.textCerca,
+      categoria: this.categoriaSeleccionada
+    });
   }
+
+  
+  restablirFiltres() {
+    this.textCerca = '';
+    this.categoriaSeleccionada = '';
+
+    this.filtreAplicat.emit({
+      text: '',
+      categoria: ''
+    });
+  }
+
 
 }
