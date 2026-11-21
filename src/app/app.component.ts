@@ -1,10 +1,11 @@
 
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LlistaEntrenaments } from './components/llista-entrenaments/llista-entrenaments.component';
 import { FiltreEntrenaments } from './components/filtre-entrenaments/filtre-entrenaments.component';
 import { Entrenament } from './models/entrenament.model';
 import { ENTRENAMENTS } from './entrenament.mock';
 import { DatePipe } from '@angular/common';
+import { EntrenamentService } from './services/entrenament.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,9 @@ import { DatePipe } from '@angular/common';
   styleUrl: './app.component.scss'
 })
 export class App {
+
+  // Comprovem la injecció del servei
+  private readonly entrenamentService = inject(EntrenamentService);
 
   // Carreguem la llista inicial d'entrenaments
   entrenaments = ENTRENAMENTS;
