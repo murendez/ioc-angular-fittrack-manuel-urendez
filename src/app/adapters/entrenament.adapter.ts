@@ -21,3 +21,17 @@ export function adaptarEntrenament(api: EntrenamentApi): Entrenament {
     destacat: api.popular ?? false
   };
 }
+
+// Preparem les dades d'un entrenament per enviar-les a l'API
+export function prepararEntrenamentApi(entrenament: Entrenament): EntrenamentApi {
+  return {
+    id: entrenament.id,
+    nom: entrenament.nom.trim(),
+    descripcio: entrenament.descripcio.trim(),
+    categoria: entrenament.categoria,
+    data: entrenament.data,
+    ubicacio: entrenament.ubicacio,
+    durada: entrenament.durada,
+    popular: entrenament.destacat ?? false
+  };
+}

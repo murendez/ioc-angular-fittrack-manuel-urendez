@@ -1,9 +1,8 @@
 
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal, effect } from '@angular/core';
 import { LlistaEntrenaments } from './components/llista-entrenaments/llista-entrenaments.component';
 import { FiltreEntrenaments } from './components/filtre-entrenaments/filtre-entrenaments.component';
 import { Entrenament } from './models/entrenament.model';
-import { ENTRENAMENTS } from './entrenament.mock';
 import { DatePipe } from '@angular/common';
 import { EntrenamentService } from './services/entrenament.service';
 
@@ -18,17 +17,54 @@ export class App {
   // Comprovem la injecció del servei
   private readonly entrenamentService = inject(EntrenamentService);
 
-  // Carreguem la llista inicial d'entrenaments
-  entrenaments = ENTRENAMENTS;
+  // Consultem l'estat de les peticions HTTP
+  readonly estatServei = this.entrenamentService.estat;
+
+  // Guardem tots els entrenaments rebuts del servidor
+  private totsElsEntrenaments: Entrenament[] = [];
+
+  // Guardem els entrenaments en un signal
+  entrenaments = signal<Entrenament[]>([]);
 
   entrenamentSeleccionat: Entrenament | null = null;
 
+  // Actualitzem la llista quan el servei rep entrenaments
+  private readonly sincronitzarEntrenaments = effect(() => {
+    const estat = this.estatServei();
+
+    if (estat.estat === 'exit') {
+      this.totsElsEntrenaments = estat.elements;
+      this.entrenaments.set(estat.elements);
+    }
+  });
+
+  constructor() {
+    // Demanem els entrenaments al servidor
+    this.entrenamentService.obtenirEntrenaments().subscribe({
+      next: (dades) => {
+        this.totsElsEntrenaments = dades;
+        this.entrenaments.set(dades);
+
+        // Comprovem l'estat després de rebre les dades
+        console.log('Estat del servei:', this.entrenamentService.estat());
+      },
+      error: (error) => {
+        console.error('Error carregant entrenaments:', error);
+      }
+    });
+  }
+
+  // Tornem a demanar els entrenaments a l'API
+  reintentarCarrega(): void {
+    this.entrenamentService.reintentar();
+  }
+  
   aplicarFiltre(filtres: { text: string; categoria: string }) {
 
     // Netegem la selecció anterior quan canviem els filtres
     this.entrenamentSeleccionat = null;
 
-    this.entrenaments = ENTRENAMENTS.filter(entrenament => {
+    this.entrenaments.set(this.totsElsEntrenaments.filter(entrenament => {
 
       // Comprovem si el nom conté el text que hem escrit
       const coincideixText = entrenament.nom
@@ -41,7 +77,7 @@ export class App {
         entrenament.categoria === filtres.categoria;
 
       return coincideixText && coincideixCategoria;
-    });
+    }));
   }
 
   // Guardem l'entrenament que ha seleccionat l'usuari

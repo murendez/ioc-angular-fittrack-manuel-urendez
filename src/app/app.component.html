@@ -21,6 +21,20 @@
     <!-- Columna del detall i la llista -->
     <div class="columna-resultats">
 
+      <!-- Mostrem l'estat de la càrrega -->
+      @if (estatServei().estat === 'carregant') {
+        <p role="status">Carregant entrenaments...</p>
+      }
+
+      @if (estatServei().estat === 'error') {
+      <div role="alert">
+        <p>{{ estatServei().error }}</p>
+        <button type="button" (click)="reintentarCarrega()">
+          Tornar a intentar
+        </button>
+      </div>
+    }
+
       @if (entrenamentSeleccionat) {
         <!-- Mostrem els detalls de l'entrenament seleccionat -->
         <section class="detall-entrenament">
@@ -40,7 +54,7 @@
 
       <!-- Mostrem la llista i rebem l'entrenament seleccionat -->
       <app-llista-entrenaments
-        [entrenaments]="entrenaments"
+        [entrenaments]="entrenaments()"
         (entrenamentSeleccionat)="seleccionarEntrenament($event)">
       </app-llista-entrenaments>
 
