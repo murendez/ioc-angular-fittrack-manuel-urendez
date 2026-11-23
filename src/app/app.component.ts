@@ -45,9 +45,6 @@ export class App {
       next: (dades) => {
         this.totsElsEntrenaments = dades;
         this.entrenaments.set(dades);
-
-        // Comprovem l'estat després de rebre les dades
-        console.log('Estat del servei:', this.entrenamentService.estat());
       },
       error: (error) => {
         console.error('Error carregant entrenaments:', error);

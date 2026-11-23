@@ -21,11 +21,18 @@
     <!-- Columna del detall i la llista -->
     <div class="columna-resultats">
 
-      <!-- Mostrem l'estat de la càrrega -->
+      <!-- Mostrem un missatge mentre es carreguen les dades -->
       @if (estatServei().estat === 'carregant') {
         <p role="status">Carregant entrenaments...</p>
       }
 
+      <!-- Mostrem la llista només quan les dades s'han carregat -->
+      @if (estatServei().estat === 'exit') {
+        <app-llista-entrenaments
+          [entrenaments]="entrenaments()"
+          (entrenamentSeleccionat)="seleccionarEntrenament($event)">
+        </app-llista-entrenaments>
+      }
       @if (estatServei().estat === 'error') {
       <div role="alert">
         <p>{{ estatServei().error }}</p>
@@ -51,12 +58,6 @@
           <p>Data: {{ entrenamentSeleccionat.data | date:'dd/MM/yyyy' }}</p>
         </section>
       }
-
-      <!-- Mostrem la llista i rebem l'entrenament seleccionat -->
-      <app-llista-entrenaments
-        [entrenaments]="entrenaments()"
-        (entrenamentSeleccionat)="seleccionarEntrenament($event)">
-      </app-llista-entrenaments>
 
     </div>
 

@@ -17,11 +17,12 @@ describe('TargetaEntrenament', () => {
 
     // Creem un entrenament de prova per a la targeta
     const entrenamentProva: Entrenament = {
-      id: 1,
+      id: '1',
       nom: 'Carrera contínua',
       descripcio: 'Carrera suau',
       categoria: 'Running',
       data: '2026-10-20',
+      ubicacio: 'Exterior',
       durada: 45,
       destacat: false
     };
