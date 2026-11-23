@@ -5,6 +5,7 @@ import { FiltreEntrenaments } from './components/filtre-entrenaments/filtre-entr
 import { Entrenament } from './models/entrenament.model';
 import { DatePipe } from '@angular/common';
 import { EntrenamentService } from './services/entrenament.service';
+import { normalitzarText } from './services/entrenament.service';
 
 @Component({
   selector: 'app-root',
@@ -66,10 +67,9 @@ export class App {
 
     this.entrenaments.set(this.totsElsEntrenaments.filter(entrenament => {
 
-      // Comprovem si el nom conté el text que hem escrit
-      const coincideixText = entrenament.nom
-        .toLowerCase()
-        .includes(filtres.text.toLowerCase());
+      // Comparem els noms sense tenir en compte els accents
+      const coincideixText = normalitzarText(entrenament.nom)
+        .includes(normalitzarText(filtres.text));
 
       // Comprovem si coincideix amb la categoria seleccionada
       const coincideixCategoria =

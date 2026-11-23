@@ -1,6 +1,6 @@
 
 <!-- Formulari per filtrar els entrenaments -->
-<form #formulari="ngForm">
+<form [formGroup]="formulari">
   <h2>Filtrar entrenaments</h2>
 
   <div>
@@ -9,19 +9,22 @@
     <input
       type="text"
       id="textCerca"
-      name="textCerca"
-      [(ngModel)]="textCerca"
-      #cerca="ngModel"
-      required
-      minlength="3"
-      [attr.aria-describedby]="cerca.errors?.['minlength'] && cerca.touched ? 'error-cerca' : null"
-      [attr.aria-invalid]="cerca.invalid && cerca.touched"      
-      placeholder="Exemple: Carrera">
+      formControlName="text"
+      placeholder="Exemple: Carrera"
+      [attr.aria-describedby]="formulari.controls.text.hasError('minlength') && formulari.controls.text.touched ? 'error-cerca' : null"
+      [attr.aria-invalid]="formulari.controls.text.invalid && formulari.controls.text.touched">
 
     <!-- Mostrem un avís accessible quan el text és massa curt -->
-    @if (cerca.errors?.['minlength'] && cerca.touched) {
+    @if (formulari.controls.text.hasError('minlength') && formulari.controls.text.touched) {
       <p id="error-cerca" class="error" role="alert">
         El text ha de tenir com a mínim 3 caràcters.
+      </p>
+    }
+
+    <!-- Avisem quan la cerca no té resultats -->
+    @if (formulari.controls.text.hasError('senseResultats')) {
+      <p id="error-resultats" class="error" role="alert">
+        No hi ha entrenaments que coincideixin amb aquesta cerca.
       </p>
     }
   </div>
@@ -31,8 +34,7 @@
 
     <select
       id="categoria"
-      name="categoria"
-      [(ngModel)]="categoriaSeleccionada">
+      formControlName="categoria">
 
       <option value="">Totes les categories</option>
       <option value="Running">Running</option>
@@ -48,7 +50,7 @@
   <button
     type="button"
     (click)="aplicarFiltre()"
-    [disabled]="formulari.invalid">
+    [disabled]="formulari.invalid || formulari.pending">
     Aplicar filtres
   </button>
 
@@ -57,3 +59,23 @@
     Restablir filtres
   </button>
 </form>
+
+<!-- Mostrem les últimes cerques guardades -->
+@if (historial.length > 0) {
+  <section class="historial-cerques">
+    <h3>Últimes cerques</h3>
+
+    <ul>
+      @for (cerca of historial; track $index) {
+        <li>
+          <button type="button" (click)="recuperarCerca(cerca)">
+            {{ cerca.text || 'Tots' }}
+            @if (cerca.categoria) {
+              - {{ cerca.categoria }}
+            }
+          </button>
+        </li>
+      }
+    </ul>
+  </section>
+}

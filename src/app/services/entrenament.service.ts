@@ -13,6 +13,15 @@ export interface EstatEntrenaments {
   error?: string;
 }
 
+// Eliminem accents i passem el text a minúscules
+export function normalitzarText(text: string): string {
+  return text
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim();
+}
+
 @Service()
 export class EntrenamentService {
 
@@ -90,6 +99,22 @@ export class EntrenamentService {
     return this.http.post<EntrenamentApi>(this.url, dadesApi).pipe(
       map(dades => adaptarEntrenament(dades)),
       tap(() => this.reintentar())
+    );
+  }
+
+  // Comptem els entrenaments que coincideixen amb la cerca
+  comptarResultats(text: string, categoria: string): Observable<number> {
+    return this.http.get<EntrenamentApi[]>(this.url).pipe(
+      map(dades => dades.map(adaptarEntrenament)),
+      map(entrenaments => entrenaments.filter(entrenament => {
+        const coincideixText = normalitzarText(entrenament.nom)
+          .includes(normalitzarText(text));
+
+        const coincideixCategoria =
+          categoria === '' || entrenament.categoria === categoria;
+
+        return coincideixText && coincideixCategoria;
+      }).length)
     );
   }
 }
